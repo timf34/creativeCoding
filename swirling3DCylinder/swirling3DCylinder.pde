@@ -24,11 +24,14 @@ void draw() {
     // float cameraOffsetX = cos(cameraAngle) * cameraZ; // Offset the camera's X-coordinate
     float cameraOffsetY = sin(cameraAngle) * cameraZ; // Offset the camera's Y-coordinate
     
-    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, -1, 0);
+    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, -150, 0, -1, 0);
     translate(width / 2, height / 2);
     
     // ambientLight(0, 255, 200);
     // directionalLight(255, 255, 255, 0, 1, -1);
+
+    ambientLight(255, 255, 255); // Ambient light
+  pointLight(255, 255, 255, width/2, height/2, -cameraZ); // Point light
     
     
     particleManager.updateParticles();
@@ -77,9 +80,11 @@ class Particle {
     void display() {
         float x = radius * cos(angle);
         float y = radius * sin(angle);
-        pushMatrix();
+        // pushMatrix();
         translate(x, y, z);
-        ellipse(x, y,diameter, diameter);
-        popMatrix();
+        // ellipse(x, y,diameter, diameter);
+        fill(255, 255, 255); // Give the sphere a white color
+        sphere(50);
+        // popMatrix();
     }
 }
