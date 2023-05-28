@@ -1,9 +1,9 @@
 // Configuration constants
 final int NUM_PARTICLES = 50;
-final int NUM_LAYERS = 10;
-final float PARTICLE_RADIUS = 200;
+final int NUM_LAYERS = 30;
+final float PARTICLE_RADIUS = 100;
 final float PARTICLE_SPEED = 0.01;
-final float PARTICLE_DIAMETER = 10;
+final float PARTICLE_DIAMETER = 20;
 
 ParticleManager particleManager;
 
@@ -27,8 +27,8 @@ void draw() {
     camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, -1, 0);
     translate(width / 2, height / 2);
     
-    ambientLight(0, 255, 200);
-    directionalLight(255, 255, 255, 0, 1, -1);
+    // ambientLight(0, 255, 200);
+    // directionalLight(255, 255, 255, 0, 1, -1);
     
     
     particleManager.updateParticles();
