@@ -19,7 +19,7 @@ void draw() {
     
     float cameraX = width / 2; // X-coordinate of the camera (centered)
     float cameraY = height / 2; // Y-coordinate of the camera (centered)
-    float cameraAngle = radians(60); // Angle of the camera in radians
+    float cameraAngle = radians(70); // Angle of the camera in radians
     
     // float cameraOffsetX = cos(cameraAngle) * cameraZ; // Offset the camera's X-coordinate
     float cameraOffsetY = sin(cameraAngle) * cameraZ; // Offset the camera's Y-coordinate
@@ -29,9 +29,9 @@ void draw() {
     
     // ambientLight(0, 255, 200);
     // directionalLight(255, 255, 255, 0, 1, -1);
-
+    
     ambientLight(255, 255, 255); // Ambient light
-  pointLight(255, 255, 255, width/2, height/2, -cameraZ); // Point light
+    pointLight(255, 255, 255, width / 2, height / 2, -cameraZ); // Point light
     
     
     particleManager.updateParticles();
@@ -45,6 +45,7 @@ class ParticleManager {
             float layerZ = map(layer, 0, numLayers, -PARTICLE_DIAMETER * numLayers / 2, PARTICLE_DIAMETER * numLayers / 2);
             for (int i = 0; i < numParticles; i++) {
                 float angle = map(i, 0, numParticles, 0, TWO_PI);
+                angle += layer * 0.05; // adjust the angle based on layer number here
                 particles.add(new Particle(angle, radius, layerZ, speed, diameter));
             }
         }
