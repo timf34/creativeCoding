@@ -8,11 +8,17 @@ final int CAMERA_ANGLE_DEGREES = 70;
 final int AMBIENT_LIGHT_INTENSITY = 255;
 final float LAYER_ANGLE_OFFSET = 0.03;
 final float LAYER_SPEED_OFFSET = 0.0005;
+final boolean SAVE_FRAMES = true;
+final int FRAMES_TO_SAVE = 200;  // Adjust to how many frames you want to save
+final int FRAME_RATE = 30;  // Adjust to your desired frame rate
+
+int savedFrameCount = 0;
 
 ParticleManager particleManager;
 
 void setup() {
     size(800, 800, P3D);
+    frameRate(FRAME_RATE);  // Sets the drawing speed to your desired frame rate
     particleManager = new ParticleManager();
     particleManager.createParticles(NUM_PARTICLES, NUM_LAYERS, PARTICLE_RADIUS, PARTICLE_BASE_SPEED, PARTICLE_DIAMETER);
 }
@@ -20,7 +26,15 @@ void setup() {
 void draw() {
     setCameraAndLighting();
     particleManager.updateParticles();
+    if (SAVE_FRAMES && savedFrameCount < FRAMES_TO_SAVE) {
+        saveFrame("frames/frame-####.png");
+        savedFrameCount++;
+    }
+    if (savedFrameCount >= FRAMES_TO_SAVE) {
+        noLoop();  // Stop the draw loop when you've saved enough frames
+    }
 }
+
 
 void setCameraAndLighting() {
     background(0);
