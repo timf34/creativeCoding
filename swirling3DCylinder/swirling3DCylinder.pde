@@ -2,7 +2,7 @@
 final int NUM_PARTICLES = 50;
 final int NUM_LAYERS = 30;
 final float PARTICLE_RADIUS = 100;
-final float PARTICLE_SPEED = 0.01;
+final float PARTICLE_BASE_SPEED = 0.005;
 final float PARTICLE_DIAMETER = 15;
 
 ParticleManager particleManager;
@@ -10,7 +10,7 @@ ParticleManager particleManager;
 void setup() {
     size(800, 800, P3D);
     particleManager = new ParticleManager();
-    particleManager.createParticles(NUM_PARTICLES, NUM_LAYERS, PARTICLE_RADIUS, PARTICLE_SPEED, PARTICLE_DIAMETER);
+    particleManager.createParticles(NUM_PARTICLES, NUM_LAYERS, PARTICLE_RADIUS, PARTICLE_BASE_SPEED, PARTICLE_DIAMETER);
 }
 
 void draw() {
@@ -40,12 +40,14 @@ void draw() {
 class ParticleManager {
     ArrayList<Particle> particles = new ArrayList<Particle>();
     
-    void createParticles(int numParticles, int numLayers, float radius, float speed, float diameter) {
+    void createParticles(int numParticles, int numLayers, float radius, float baseSpeed, float diameter) {
         for (int layer = 0; layer < numLayers; layer++) {
             float layerZ = map(layer, 0, numLayers, -PARTICLE_DIAMETER * numLayers / 2, PARTICLE_DIAMETER * numLayers / 2);
+            float speed = baseSpeed + (NUM_LAYERS- layer) * 0.0005; // adjust the speed based on layer number here
+            // speed += layer * 0.00002; // adjust the speed based on layer number here
             for (int i = 0; i < numParticles; i++) {
                 float angle = map(i, 0, numParticles, 0, TWO_PI);
-                angle += layer * 0.05; // adjust the angle based on layer number here
+                angle += layer * 0.03; // adjust the angle based on layer number here
                 particles.add(new Particle(angle, radius, layerZ, speed, diameter));
             }
         }
