@@ -4,6 +4,10 @@ final int NUM_LAYERS = 30;
 final float PARTICLE_RADIUS = 100;
 final float PARTICLE_BASE_SPEED = 0.005;
 final float PARTICLE_DIAMETER = 15;
+final int CAMERA_ANGLE_DEGREES = 70;
+final int AMBIENT_LIGHT_INTENSITY = 255;
+final float LAYER_ANGLE_OFFSET = 0.03;
+final float LAYER_SPEED_OFFSET = 0.0005;
 
 ParticleManager particleManager;
 
@@ -14,27 +18,24 @@ void setup() {
 }
 
 void draw() {
+    setCameraAndLighting();
+    particleManager.updateParticles();
+}
+
+void setCameraAndLighting() {
     background(0);
-    float cameraZ = (height / 2) / tan(PI / 6); // Distance from the camera to the origin
-    
-    float cameraX = width / 2; // X-coordinate of the camera (centered)
-    float cameraY = height / 2; // Y-coordinate of the camera (centered)
-    float cameraAngle = radians(70); // Angle of the camera in radians
-    
-    // float cameraOffsetX = cos(cameraAngle) * cameraZ; // Offset the camera's X-coordinate
-    float cameraOffsetY = sin(cameraAngle) * cameraZ; // Offset the camera's Y-coordinate
+
+    float cameraZ = (height / 2) / tan(PI / 6);
+    float cameraX = width / 2;
+    float cameraY = height / 2;
+    float cameraAngle = radians(CAMERA_ANGLE_DEGREES);
+    float cameraOffsetY = sin(cameraAngle) * cameraZ;
     
     camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, -1, 0);
     translate(width / 2, height / 2);
     
-    // ambientLight(0, 255, 200);
-    // directionalLight(255, 255, 255, 0, 1, -1);
-    
-    ambientLight(255, 255, 255); // Ambient light
-    pointLight(255, 255, 255, width / 2, height / 2, -cameraZ); // Point light
-    
-    
-    particleManager.updateParticles();
+    ambientLight(AMBIENT_LIGHT_INTENSITY, AMBIENT_LIGHT_INTENSITY, AMBIENT_LIGHT_INTENSITY);
+    pointLight(AMBIENT_LIGHT_INTENSITY, AMBIENT_LIGHT_INTENSITY, AMBIENT_LIGHT_INTENSITY, width / 2, height / 2, -cameraZ);
 }
 
 class ParticleManager {
@@ -43,11 +44,10 @@ class ParticleManager {
     void createParticles(int numParticles, int numLayers, float radius, float baseSpeed, float diameter) {
         for (int layer = 0; layer < numLayers; layer++) {
             float layerZ = map(layer, 0, numLayers, -PARTICLE_DIAMETER * numLayers / 2, PARTICLE_DIAMETER * numLayers / 2);
-            float speed = baseSpeed + (NUM_LAYERS- layer) * 0.0005; // adjust the speed based on layer number here
-            // speed += layer * 0.00002; // adjust the speed based on layer number here
+            float speed = baseSpeed + (NUM_LAYERS - layer) * LAYER_SPEED_OFFSET;
+            
             for (int i = 0; i < numParticles; i++) {
-                float angle = map(i, 0, numParticles, 0, TWO_PI);
-                angle += layer * 0.03; // adjust the angle based on layer number here
+                float angle = map(i, 0, numParticles, 0, TWO_PI) + layer * LAYER_ANGLE_OFFSET;
                 particles.add(new Particle(angle, radius, layerZ, speed, diameter));
             }
         }
@@ -83,9 +83,10 @@ class Particle {
     void display() {
         float x = radius * cos(angle);
         float y = radius * sin(angle);
+        
         pushMatrix();
         translate(x, y, z);
-        ellipse(x, y,diameter, diameter);
+        ellipse(x, y, diameter, diameter);
         popMatrix();
     }
 }
