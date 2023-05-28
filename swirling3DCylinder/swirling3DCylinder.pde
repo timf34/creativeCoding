@@ -3,7 +3,7 @@ final int NUM_PARTICLES = 50;
 final int NUM_LAYERS = 30;
 final float PARTICLE_RADIUS = 100;
 final float PARTICLE_SPEED = 0.01;
-final float PARTICLE_DIAMETER = 20;
+final float PARTICLE_DIAMETER = 15;
 
 ParticleManager particleManager;
 
@@ -24,7 +24,7 @@ void draw() {
     // float cameraOffsetX = cos(cameraAngle) * cameraZ; // Offset the camera's X-coordinate
     float cameraOffsetY = sin(cameraAngle) * cameraZ; // Offset the camera's Y-coordinate
     
-    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, -150, 0, -1, 0);
+    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, -1, 0);
     translate(width / 2, height / 2);
     
     // ambientLight(0, 255, 200);
@@ -80,11 +80,9 @@ class Particle {
     void display() {
         float x = radius * cos(angle);
         float y = radius * sin(angle);
-        // pushMatrix();
+        pushMatrix();
         translate(x, y, z);
-        // ellipse(x, y,diameter, diameter);
-        fill(255, 255, 255); // Give the sphere a white color
-        sphere(50);
-        // popMatrix();
+        ellipse(x, y,diameter, diameter);
+        popMatrix();
     }
 }
