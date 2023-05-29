@@ -21,7 +21,7 @@ void draw() {
     // float cameraOffsetX = cos(cameraAngle) * cameraZ; // Offset the camera's X-coordinate
     float cameraOffsetY = sin(cameraAngle) * cameraZ; // Offset the camera's Y-coordinate
     
-    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, -1, 0);
+    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, 1, 0);
     // ellipse(width / 2, height / 2, RADIUS, RADIUS); // draw a circle at the center of the window
     planeManager.updatePlane();
 }
