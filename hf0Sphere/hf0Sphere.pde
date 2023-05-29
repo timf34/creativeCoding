@@ -43,7 +43,7 @@ class CircularPlane {
     }
 
     void move() {
-        if (this.y > 0 ) {
+        if (this.y > -RADIUS ) {
             this.y -= 1;
         }
         else {
