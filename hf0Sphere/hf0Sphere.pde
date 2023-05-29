@@ -54,7 +54,7 @@ class CircularPlane {
     void display() {
         float calculatedRadius = sqrt(pow(this.radius, 2) - pow(this.y, 2));
         pushMatrix();
-        translate(width / 2, height / 2, this.y);
+        translate(width / 2, height / 2, this.y);  // Translate it along the y-axis (which is the z-axis in Processing's 3D space)
         ellipse(0, 0, calculatedRadius * 2, calculatedRadius * 2);
         popMatrix();
     }
