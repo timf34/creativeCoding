@@ -5,7 +5,6 @@ CircularPlaneManager planeManager;
 void setup() {
     size(800, 800, P3D); // set the size of the window
     background(0); // set the background color to black
-    
     planeManager = new CircularPlaneManager();
 }
 
@@ -19,13 +18,10 @@ void draw() {
 void setCamera() {
     float cameraZ = (height / 2) / tan(PI / 6); // Distance from the camera to the origin
     float cameraX = width / 2; // X-coordinate of the camera (centered)
-    float cameraY = height / 2; // Y-coordinate of the camera (centered)
-
-    // float cameraAngle = map(mouseX, 0, width, 0, 2 * PI); // The angle of the camera
-    float cameraAngle = radians(60); // The angle of the camera
+    float cameraY = height / 4; // Y-coordinate of the camera (centered)
+    float cameraAngle = radians(80); // The angle of the camera
     float cameraOffsetY = sin(cameraAngle) * cameraZ; // The offset of the camera in the y direction
-
-    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, 1, 0);
+    camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, -1, 0);
 }
 
 class CircularPlaneManager {
@@ -57,6 +53,9 @@ class CircularPlane {
 
     void display() {
         float calculatedRadius = sqrt(pow(this.radius, 2) - pow(this.y, 2));
-        ellipse(width / 2, height / 2, calculatedRadius * 2, calculatedRadius * 2);
+        pushMatrix();
+        translate(width / 2, height / 2, this.y);
+        ellipse(0, 0, calculatedRadius * 2, calculatedRadius * 2);
+        popMatrix();
     }
 }
