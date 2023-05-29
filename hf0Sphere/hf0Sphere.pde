@@ -30,7 +30,7 @@ void setCamera() {
 }
 
 class CircularPlaneManager {
-    CircularPlane plane = new CircularPlane(RADIUS, 0, 100); // We are setting y to be 100 for now.
+    CircularPlane plane = new CircularPlane(RADIUS, 0, RADIUS); // We are setting y to be 100 for now.
     
     void updatePlane() {
         plane.move();
@@ -54,7 +54,7 @@ class CircularPlane {
             this.y -= 1;
         }
         else {
-            this.y = 100;
+            this.y = RADIUS;
         }
     }
 
