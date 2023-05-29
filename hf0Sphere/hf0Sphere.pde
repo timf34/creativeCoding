@@ -1,4 +1,5 @@
 final int RADIUS = 200; // the radius of the circle
+final int PLANE_INTERVAL = 50; // the interval at which new planes are added
 
 CircularPlaneManager planeManager;
 
@@ -25,11 +26,25 @@ void setCamera() {
 }
 
 class CircularPlaneManager {
-    CircularPlane plane = new CircularPlane(RADIUS, RADIUS); // We are setting y to be RADIUS for now.
+    ArrayList<CircularPlane> planes = new ArrayList<CircularPlane>();
     
+    int lastAdded = 0;
+
     void updatePlane() {
-        plane.move();
-        plane.display();
+        if(frameCount - lastAdded > PLANE_INTERVAL) {
+            planes.add(new CircularPlane(RADIUS, RADIUS));
+            lastAdded = frameCount;
+        }
+        
+        for(int i = planes.size() - 1; i >= 0; i--) {
+            CircularPlane plane = planes.get(i);
+            plane.move();
+            plane.display();
+
+            if(plane.y < -RADIUS) {
+                planes.remove(i);
+            }
+        }
     }
 }
 
@@ -45,9 +60,6 @@ class CircularPlane {
     void move() {
         if (this.y > -RADIUS ) {
             this.y -= 1;
-        }
-        else {
-            this.y = RADIUS;
         }
     }
 
