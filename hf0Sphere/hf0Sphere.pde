@@ -23,14 +23,13 @@ void setCamera() {
 
     // float cameraAngle = map(mouseX, 0, width, 0, 2 * PI); // The angle of the camera
     float cameraAngle = radians(60); // The angle of the camera
-
     float cameraOffsetY = sin(cameraAngle) * cameraZ; // The offset of the camera in the y direction
 
     camera(cameraX, cameraY - cameraOffsetY, cameraZ, cameraX, cameraY, 0, 0, 1, 0);
 }
 
 class CircularPlaneManager {
-    CircularPlane plane = new CircularPlane(RADIUS, 0, RADIUS); // We are setting y to be 100 for now.
+    CircularPlane plane = new CircularPlane(RADIUS, RADIUS); // We are setting y to be RADIUS for now.
     
     void updatePlane() {
         plane.move();
@@ -40,12 +39,10 @@ class CircularPlaneManager {
 
 class CircularPlane {
     float radius;
-    float planeX;  // This is equivalent to x in 3D space - the x in Pythagorean theorem
     float y;  // This is equivalent to z in 3D space 
 
-    CircularPlane(float radius, float planeX, float y) {
+    CircularPlane(float radius, float y) {
         this.radius = radius;
-        this.planeX = planeX;
         this.y = y;
     }
 
@@ -59,7 +56,6 @@ class CircularPlane {
     }
 
     void display() {
-        // Use Pythagorean theorem to calculate the x coordinate
         float calculatedRadius = sqrt(pow(this.radius, 2) - pow(this.y, 2));
         ellipse(width / 2, height / 2, calculatedRadius * 2, calculatedRadius * 2);
     }
