@@ -4,7 +4,7 @@
 
 A circle is a 2D shape described by the equation:
 
-\[ (x - h)^2 + (y - k)^2 = r^2 \]
+$(x - h)^2 + (y - k)^2 = r^2$
 
 Where:
 - \( (h, k) \) is the center of the circle.
@@ -12,19 +12,19 @@ Where:
 
 In your shader, you used the equation with the circle centered at the origin:
 
-\[ x^2 + y^2 = r^2 \]
+$x^2 + y^2 = r^2$
 
 ### Points on the Circle
 
 For a given \( x \) value, the \( y \) value of a point on the circle can be found as:
 
-\[ y = \pm \sqrt{r^2 - x^2} \]
+$y = \pm \sqrt{r^2 - x^2}$
 
 ## Sphere
 
 A sphere is a 3D object described by the equation:
 
-\[ (x - h)^2 + (y - k)^2 + (z - l)^2 = r^2 \]
+$(x - h)^2 + (y - k)^2 + (z - l)^2 = r^2$
 
 Where:
 - \( (h, k, l) \) is the center of the sphere.
